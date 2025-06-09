@@ -63,26 +63,21 @@ func cross(population):
 	# polovina sledece populacije ce biti roditelji
 	for p in population:
 		children.append(p)
-	#ukrstamo na dalje nasumicno 2 roditelja tako da dobijemo uvek
-	# 2 deteta sa "suprotnim" osobinama oba roditelja
-	# tako cemo ponovo dobiti isti broj jedinki za sledecu generaciju
-	for parent1 in population:
-		# izabrati 2 roditelja, prvi uzimamo redom, a drugog 
-		# biramo nasumicno. Ovaj deo koda mozete da menjate 
-		# odabir je na vama, ovo je samo primer
-		var parent2=population[randi_range(0,len(population)-1)];
+	var parent1 = population[0]
+	for i in range(len(population) - 1):
+		var parent2 = population[randi_range(0,len(population)-1)];
 		#kopiranje matrice
 		var child1=[]
 		var child2=[]
-		for i in range(16):# broj elemenata matrice (gena)
+		for j in range(16):# broj elemenata matrice (gena)
 			var odabir=randf()     #bacamo novcic i biramo gen prvog 
 								# ili drugog roditelja
 			if(odabir<=0.5):
-				child1.append(parent1.genes[i])
-				child2.append(parent2.genes[i])
+				child1.append(parent1.genes[j])
+				child2.append(parent2.genes[j])
 			else:
-				child2.append(parent1.genes[i])
-				child1.append(parent2.genes[i])
+				child2.append(parent1.genes[j])
+				child1.append(parent2.genes[j])
 		children.append(Individual.new(child1,str(numberOfIndividuals)))
 		#children.append(Individual.new(child2,str(numberOfIndividuals+1)))
 		numberOfIndividuals+=1
@@ -95,7 +90,7 @@ func mutate(population):
 	# i promenite joj nasumicno na neki nacin reflexMatrix
 	for i in range(3):
 		var mutated=population[randi_range(0,len(population)-1)]
-		mutated.genes[randi_range(0,7)]=randf_range(-2.0, 2.0)
+		mutated.genes[randi_range(0,7)]=(randf()-0.5) * randf_range(1.0, 3.0)
 		mutated.name=mutated.name+"M"
 	return population;
 
