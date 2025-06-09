@@ -54,20 +54,11 @@ func Ind_got_score(ind):
 var subViews=[]
 
 func select(population):
-	# ovde kucate kod koji obavlja proces selekcije.
-	# treba da vratite podskup populacije
-	# primer:
-	# jedinke populacije su sortirane po uspesnosti
-	# pa samo uzimamo uspesniju polovinu
 	var chosen=[]
 	for i in range(int(len(population)/2)):
 		chosen.append(population[i])
 	return chosen;
 func cross(population):
-	# ovde kucate kod koji obavlja proces ukrstanja
-	# cilj je da se napravi nov objekat sa reflexMatrix
-	# koji je napravljen od delova svojih "roditelja"
-	# primer:
 	var children=[]
 	# polovina sledece populacije ce biti roditelji
 	for p in population:
@@ -84,7 +75,7 @@ func cross(population):
 		var child1=[]
 		var child2=[]
 		for i in range(16):# broj elemenata matrice (gena)
-			var odabir=randf() 	#bacamo novcic i biramo gen prvog 
+			var odabir=randf()     #bacamo novcic i biramo gen prvog 
 								# ili drugog roditelja
 			if(odabir<=0.5):
 				child1.append(parent1.genes[i])
@@ -102,9 +93,10 @@ func mutate(population):
 	# ovde kucate kod koji obavlja proces mutacije.
 	# izaberete jednu, ili mali broj jedinki,
 	# i promenite joj nasumicno na neki nacin reflexMatrix
-	var mutated=population[randi_range(0,len(population)-1)]
-	mutated.genes[randi_range(0,16-1)]=randf()-0.5
-	mutated.name=mutated.name+"M"
+	for i in range(3):
+		var mutated=population[randi_range(0,len(population)-1)]
+		mutated.genes[randi_range(0,7)]=randf_range(-2.0, 2.0)
+		mutated.name=mutated.name+"M"
 	return population;
 
 func newGeneration():
@@ -157,5 +149,3 @@ func _ready():
 
 func _process(delta):
 	pass
-
-
